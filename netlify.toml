@@ -1,0 +1,273 @@
+# netlify.toml - Optimized Netlify Configuration for Radio Flambeau-Banka
+
+[build]
+  # Build command
+  command = "npm install && npm run build"
+  
+  # Output directory
+  publish = "dist"
+  
+  # Environment variables for build
+  environment = { NODE_VERSION = "20", NPM_VERSION = "10", NPM_FLAGS = "--include=dev" }
+
+# Production build settings
+[build.processing]
+  # Skip Netlify's own processing since Vite handles optimization
+  skip_processing = false
+
+[build.processing.css]
+  # Let Vite handle CSS optimization
+  bundle = false
+  minify = false
+
+[build.processing.js]
+  # Let Vite handle JS optimization  
+  bundle = false
+  minify = false
+
+[build.processing.html]
+  # Let Vite handle HTML optimization
+  pretty_urls = true
+
+# Redirects for SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin", "editor"]}
+
+# API redirects (if needed in future)
+[[redirects]]
+  from = "/api/*"
+  to = "https://api.radioflambeaubanka.com/:splat"
+  status = 200
+  force = true
+
+# Legacy URL redirects
+[[redirects]]
+  from = "/partenaires"
+  to = "/partners"
+  status = 301
+
+[[redirects]]
+  from = "/galerie"
+  to = "/gallery"
+  status = 301
+
+[[redirects]]
+  from = "/evenements"
+  to = "/gallery"
+  status = 301
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # HTTPS Security
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    
+    # Content Security Policy
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdnjs.cloudflare.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: https: blob:;
+      media-src 'self' https: blob: https://*.radiostream321.com https://*.radio12345.com https://*.radiostream123.com;
+      connect-src 'self' https://www.google-analytics.com https://*.listen2myradio.com https://*.radiostream321.com https://*.radio12345.com https://*.radiostream123.com wss://*;
+      frame-src 'self' https://www.youtube.com https://www.facebook.com;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self' mailto:;
+      upgrade-insecure-requests;
+    """
+    
+    # XSS Protection
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Feature Policy
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+
+# Cache optimization for static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+# Images caching
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.avif"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Audio files caching
+[[headers]]
+  for = "/*.mp3"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*.wav"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*.ogg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# PWA files
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+    Content-Type = "application/manifest+json"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/offline.html"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# API headers (if using Netlify Functions in future)
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://radioflambeaubanka.com"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+
+# Environment-specific configurations
+[context.production]
+  # Production-only settings
+  command = "npm run build"
+  
+  [context.production.environment]
+    NODE_ENV = "production"
+    VITE_APP_ENV = "production"
+
+[context.deploy-preview]
+  # Deploy preview settings
+  command = "npm run build:preview"
+  
+  [context.deploy-preview.environment]
+    NODE_ENV = "staging"
+    VITE_APP_ENV = "staging"
+
+[context.branch-deploy]
+  # Branch deploy settings
+  command = "npm run build:dev"
+  
+  [context.branch-deploy.environment]
+    NODE_ENV = "development"
+    VITE_APP_ENV = "development"
+
+# Functions (for future use)
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Forms (for contact forms if needed)
+# Note: Not using since we're using direct email
+# [forms]
+#   settings = { honeypot = "bot-field" }
+
+# Large Media (for large assets)
+[large_media]
+  # Enable Large Media for assets > 100KB
+  # Currently disabled as we're optimizing all assets
+
+# Edge handlers (if needed for advanced routing)
+# [edge_handlers]
+#   directory = "netlify/edge-handlers"
+
+# Split testing (A/B testing if needed in future)
+# [[split_tests]]
+#   path = "/"
+#   branches = [
+#     { branch = "main", percentage = 90 },
+#     { branch = "experimental", percentage = 10 }
+#   ]
+
+# Plugins for optimization (commented out due to missing packages)
+# [[plugins]]
+#   package = "@netlify/plugin-lighthouse"
+#   
+#   [plugins.inputs.thresholds]
+#     performance = 0.9
+#     accessibility = 0.9
+#     best-practices = 0.9
+#     seo = 0.9
+#     pwa = 0.9
+# 
+#   [plugins.inputs.output_path]
+#     # Save Lighthouse reports
+#     reports = "lighthouse-reports"
+
+# PWA specific optimizations (commented out - package not available)
+# [[plugins]]
+#   package = "netlify-plugin-pwa-manifest"
+
+# Minification and optimization (commented out - package not available)
+# [[plugins]]
+#   package = "@netlify/plugin-sitemap"
+
+# Bundle analyzer for optimization insights (commented out - package not available)
+# [[plugins]]
+#   package = "netlify-plugin-bundle-analyzer"
+#   
+#   [plugins.inputs]
+#     # Only run on production builds
+#     production_only = true

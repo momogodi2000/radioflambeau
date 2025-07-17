@@ -1,0 +1,30 @@
+
+// public/robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.radioflambeaubanka.com/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.env
+Disallow: /node_modules/
+Disallow: /src/
+
+# Allow social media bots
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Crawl delay
+Crawl-delay: 1
+
+# Host
+Host: https://www.radioflambeaubanka.com

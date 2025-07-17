@@ -1,0 +1,20 @@
+# public/_redirects - Alternative way to handle redirects
+# This file should be placed in your public folder
+
+# SPA fallback
+/*    /index.html   200
+
+# API redirects (if needed)
+/api/*  https://your-backend-api.com/api/:splat  200
+
+# Redirect old URLs (if migrating from another site)
+/old-page  /new-page  301
+/blog/*    /news/:splat  301
+
+# External redirects
+/facebook  https://facebook.com/radioflambeaubanka  302
+/youtube   https://youtube.com/@radioflambeaubanka  302
+/whatsapp  https://wa.me/237696044661  302
+```
+
+## Step 3: Create _headers File

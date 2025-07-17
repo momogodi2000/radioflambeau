@@ -1,0 +1,151 @@
+{
+  "name": "Radio Flambeau-Banka",
+  "short_name": "Radio Flambeau",
+  "description": "Radio communautaire de Banka - Votre voix, votre communauté",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["entertainment", "music", "news", "social"],
+  "screenshots": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Accueil Mobile"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Accueil Desktop"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/icons/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Écouter en direct",
+      "short_name": "Direct",
+      "description": "Écouter Radio Flambeau-Banka en direct",
+      "url": "/?action=play",
+      "icons": [
+        {
+          "src": "/images/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Programmes",
+      "short_name": "Programmes",
+      "description": "Consulter la grille des programmes",
+      "url": "/programs",
+      "icons": [
+        {
+          "src": "/images/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Galerie",
+      "short_name": "Galerie",
+      "description": "Voir nos événements et projets",
+      "url": "/gallery",
+      "icons": [
+        {
+          "src": "/images/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Nous contacter",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/images/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "files",
+          "accept": ["image/*", "audio/*", "video/*"]
+        }
+      ]
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "mailto",
+      "url": "/contact?email=%s"
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://radioflambeaubanka.com/manifest.json"
+    }
+  ],
+  "prefer_related_applications": false,
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "handle_links": "preferred",
+  "id": "radioflambeaubanka",
+  "file_handlers": [
+    {
+      "action": "/open-audio",
+      "accept": {
+        "audio/*": [".mp3", ".wav", ".ogg"]
+      }
+    }
+  ]
+}

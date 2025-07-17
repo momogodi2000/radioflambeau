@@ -1,0 +1,212 @@
+{
+  "name": "radio-flambeau-banka",
+  "version": "2.0.1",
+  "private": true,
+  "description": "Radio communautaire de Banka - Votre voix, votre communauté",
+  "author": "Radio Flambeau-Banka <radoiflambeaubanka@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/radioflambeaubanka/website.git"
+  },
+  "homepage": "https://radioflambeaubanka.com",
+  "keywords": [
+    "radio",
+    "cameroon",
+    "banka",
+    "community",
+    "pwa",
+    "react",
+    "vite"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vite --mode development",
+    "build": "vite build --mode production",
+    "build:preview": "vite build --mode staging",
+    "build:dev": "vite build --mode development",
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext js,jsx --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,json,css,md}\"",
+    "typecheck": "echo 'TypeScript checking disabled'",
+    "test": "echo 'Tests not configured yet'",
+    "test:e2e": "echo 'E2E tests not configured yet'",
+    "clean": "rm -rf dist node_modules/.vite",
+    "clean:cache": "rm -rf node_modules/.vite .eslintcache",
+    "analyze": "npm run build && npx vite-bundle-analyzer dist",
+    "optimize": "npm run clean && npm install && npm run build",
+    "deploy": "npm run build && echo 'Deploy to Netlify'",
+    "deploy:preview": "npm run build:preview && echo 'Deploy preview to Netlify'",
+    "validate": "npm run lint && npm run format:check && npm run build",
+    "precommit": "npm run lint:fix && npm run format",
+    "postinstall": "echo 'Installation complete. Run npm run dev to start development server.'",
+    "serve": "npm run build && npm run preview",
+    "health-check": "node scripts/health-check.js",
+    "update-deps": "npx npm-check-updates -u && npm install",
+    "audit": "npm audit --audit-level moderate",
+    "audit:fix": "npm audit fix",
+    "size": "size-limit",
+    "lighthouse": "lhci autorun",
+    "pwa-test": "npm run build && npx http-server dist -p 8080"
+  },
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "framer-motion": "^10.16.16",
+    "lucide-react": "^0.294.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.4",
+    "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^6.20.1",
+    "vite": "^7.0.4",
+    "@vitejs/plugin-react": "^4.2.1",
+    "tailwindcss": "^3.3.6",
+    "postcss": "^8.4.32",
+    "autoprefixer": "^10.4.16"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.15.1",
+    "@size-limit/preset-app": "^11.0.0",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "cross-env": "^7.0.3",
+    "cssnano": "^6.0.2",
+    "eslint": "^8.55.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "http-server": "^14.1.1",
+    "npm-check-updates": "^16.14.12",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.9",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "size-limit": "^11.0.1",
+    "terser": "^5.26.0",
+    "vite-bundle-analyzer": "^0.7.0",
+    "workbox-build": "^7.0.0",
+    "workbox-window": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "not ie 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "size-limit": [
+    {
+      "path": "dist/assets/js/*.js",
+      "limit": "500 KB"
+    },
+    {
+      "path": "dist/assets/css/*.css",
+      "limit": "100 KB"
+    }
+  ],
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "pwa": {
+    "name": "Radio Flambeau-Banka",
+    "short_name": "Radio Flambeau",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#2563eb",
+    "background_color": "#ffffff"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "browsers": [
+              ">0.2%",
+              "not dead",
+              "not ie 11"
+            ]
+          }
+        }
+      ],
+      [
+        "@babel/preset-react",
+        {
+          "runtime": "automatic"
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true,
+      "es2020": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react/jsx-runtime",
+      "plugin:react-hooks/recommended",
+      "plugin:jsx-a11y/recommended"
+    ],
+    "ignorePatterns": [
+      "dist",
+      ".eslintrc.cjs",
+      "vite.config.js",
+      "netlify.toml"
+    ],
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "settings": {
+      "react": {
+        "version": "18.2"
+      }
+    },
+    "plugins": [
+      "react-refresh"
+    ],
+    "rules": {
+      "react-refresh/only-export-components": [
+        "warn",
+        {
+          "allowConstantExport": true
+        }
+      ],
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "no-unused-vars": "warn",
+      "no-console": "warn"
+    }
+  }
+}

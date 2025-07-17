@@ -1,0 +1,666 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Test styles to ensure CSS is loading */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Fallback styles in case Tailwind doesn't load */
+.fallback-test {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Variables CSS personnalisées */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --cameroon-gradient: linear-gradient(90deg, #00AA00 0%, #FF0000 50%, #FFFF00 100%);
+}
+
+/* Styles de base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fix for content display issues */
+main {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+main > div {
+  width: 100%;
+  flex: 1;
+}
+
+/* Ensure page content is visible */
+.page-content {
+  width: 100%;
+  min-height: 50vh; /* Ensure at least some height */
+  padding: 1rem;
+}
+
+/* Mobile fixes */
+@media (max-width: 768px) {
+  main {
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  .mobile-full {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Styles pour les liens */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* Styles pour les formulaires */
+input, textarea, select {
+  font-family: inherit;
+  outline: none;
+  border: none;
+  background: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Styles personnalisés */
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r bg-clip-text text-transparent;
+    --tw-gradient-from: #2563eb;
+    --tw-gradient-to: #7c3aed;
+  }
+  
+  .gradient-bg {
+    background: var(--primary-gradient);
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r text-white font-semibold py-2 px-6 rounded-full hover:shadow-lg transition-all duration-300;
+    --tw-gradient-from: #3b82f6;
+    --tw-gradient-to: #a21caf;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-gray-800 font-semibold py-2 px-6 rounded-full border border-gray-300 hover:bg-gray-50 transition-all duration-300;
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+  
+  .card-hover {
+    @apply hover:-translate-y-2 hover:shadow-2xl transition-all duration-300;
+  }
+  
+  .glassmorphism {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+  
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Animations personnalisées */
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s ease-in-out infinite;
+  }
+  
+  .animate-bounce-slow {
+    animation: bounce 2s ease-in-out infinite;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .animate-slide-down {
+    animation: slideDown 0.6s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.8); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+/* Styles pour le lecteur audio */
+.audio-player {
+  @apply glassmorphism rounded-2xl;
+}
+
+.audio-controls {
+  @apply flex items-center space-x-4;
+}
+
+.audio-progress {
+  @apply flex-1 bg-gray-200 rounded-full h-2;
+}
+
+.audio-progress-bar {
+  @apply bg-gradient-to-r h-full rounded-full transition-all duration-300;
+  --tw-gradient-from: #3b82f6;
+  --tw-gradient-to: #a21caf;
+}
+
+/* Styles pour les formulaires */
+.form-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200;
+}
+
+.form-textarea {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+/* Styles pour les notifications */
+.toast {
+  @apply bg-gray-900 text-white rounded-lg shadow-lg;
+}
+
+.toast-success {
+  @apply bg-green-600 text-white;
+}
+
+.toast-error {
+  @apply bg-red-600 text-white;
+}
+
+.toast-warning {
+  @apply bg-yellow-600 text-white;
+}
+
+.toast-info {
+  @apply bg-blue-600 text-white;
+}
+
+/* Styles pour les barres de défilement */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+/* Carousel scrollbar hide */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Styles pour les transitions de page */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Styles pour les éléments sélectionnés */
+::selection {
+  background: rgba(102, 126, 234, 0.2);
+  color: #1a1a1a;
+}
+
+::-moz-selection {
+  background: rgba(102, 126, 234, 0.2);
+  color: #1a1a1a;
+}
+
+/* Styles pour les éléments focus */
+.focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Styles pour les animations de chargement */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Styles pour les états de hover et focus */
+.interactive-element {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.interactive-element:hover {
+  @apply transform scale-105;
+}
+
+.interactive-element:active {
+  @apply transform scale-95;
+}
+
+/* Styles pour les gradients personnalisés */
+.bg-primary-gradient {
+  background: var(--primary-gradient);
+}
+
+.bg-secondary-gradient {
+  background: var(--secondary-gradient);
+}
+
+.bg-success-gradient {
+  background: var(--success-gradient);
+}
+
+.bg-warning-gradient {
+  background: var(--warning-gradient);
+}
+
+.bg-cameroon-gradient {
+  background: var(--cameroon-gradient);
+}
+
+/* Styles pour les ombres personnalisées */
+.shadow-primary {
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.shadow-secondary {
+  box-shadow: 0 10px 25px rgba(240, 147, 251, 0.3);
+}
+
+.shadow-success {
+  box-shadow: 0 10px 25px rgba(67, 233, 123, 0.3);
+}
+
+/* Styles pour les bordures personnalisées */
+.border-primary {
+  border-color: #667eea;
+}
+
+.border-secondary {
+  border-color: #f093fb;
+}
+
+/* Styles pour les états de chargement */
+.loading-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-bounce {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.loading-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Styles pour les éléments sticky */
+.sticky-header {
+  @apply sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm;
+}
+
+.sticky-player {
+  @apply fixed bottom-0 left-0 right-0 z-40 bg-gray-900 text-white;
+}
+
+/* Styles pour les éléments responsifs */
+@media (max-width: 768px) {
+  .mobile-hidden {
+    display: none;
+  }
+  
+  .mobile-full {
+    width: 100%;
+  }
+  
+  .mobile-center {
+    text-align: center;
+  }
+  
+  .mobile-padding {
+    padding: 1rem;
+  }
+  
+  .mobile-text-sm {
+    font-size: 0.875rem;
+  }
+}
+
+/* Styles pour les éléments d'accessibilité */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4 focus:rounded-br-lg;
+}
+
+/* Styles pour les états de navigation */
+.nav-link {
+  @apply text-gray-700 hover:text-blue-600 transition-colors duration-200;
+}
+
+.nav-link.active {
+  @apply text-blue-600 font-semibold;
+}
+
+/* Styles pour les éléments de contenu */
+.content-wrapper {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section-header {
+  @apply text-center mb-12 lg:mb-16;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl lg:text-5xl font-bold gradient-text mb-4;
+}
+
+.section-subtitle {
+  @apply text-lg md:text-xl text-gray-600 max-w-2xl mx-auto;
+}
+
+/* Styles pour les cartes */
+.card-grid {
+  @apply grid gap-6 md:gap-8;
+}
+
+.card-grid-2 {
+  @apply grid-cols-1 md:grid-cols-2;
+}
+
+.card-grid-3 {
+  @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.card-grid-4 {
+  @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
+}
+
+/* Styles pour les boutons */
+.btn-group {
+  @apply flex flex-col sm:flex-row gap-4 justify-center items-center;
+}
+
+.btn-icon {
+  @apply flex items-center space-x-2;
+}
+
+/* Styles pour les animations d'entrée */
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.fade-in-down {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 0.6s ease-out;
+}
+
+.fade-in-right {
+  animation: fadeInRight 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Styles pour les éléments interactifs */
+.interactive:hover {
+  @apply transform scale-105 shadow-lg;
+}
+
+.interactive:active {
+  @apply transform scale-95;
+}
+
+/* Styles pour les indicateurs de statut */
+.status-indicator {
+  @apply inline-flex items-center space-x-2;
+}
+
+.status-live {
+  @apply text-green-600;
+}
+
+.status-offline {
+  @apply text-red-600;
+}
+
+.status-loading {
+  @apply text-yellow-600;
+}
+
+/* Styles pour les éléments de mise en page */
+.layout-container {
+  @apply min-h-screen flex flex-col;
+}
+
+.layout-header {
+  @apply sticky top-0 z-50;
+}
+
+.layout-main {
+  @apply flex-1;
+}
+
+.layout-footer {
+  @apply mt-auto;
+}
+
+/* Styles pour les messages d'erreur */
+.error-message {
+  @apply text-red-600 text-sm mt-1;
+}
+
+.success-message {
+  @apply text-green-600 text-sm mt-1;
+}
+
+.warning-message {
+  @apply text-yellow-600 text-sm mt-1;
+}
+
+.info-message {
+  @apply text-blue-600 text-sm mt-1;
+}

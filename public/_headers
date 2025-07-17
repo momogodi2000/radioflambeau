@@ -1,0 +1,77 @@
+
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000
+
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/manifest.json
+  Cache-Control: public, max-age=31536000
+```
+
+## Step 4: Create Netlify Functions (Optional)
+
+```javascript
+// netlify/functions/contact.js - Serverless function for form handling
+exports.handler = async (event, context) => {
+  // Only allow POST requests
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ message: 'Method Not Allowed' })
+    };
+  }
+
+  try {
+    const data = JSON.parse(event.body);
+    
+    // Validate required fields
+    if (!data.name || !data.email || !data.message) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ 
+          success: false, 
+          message: 'Tous les champs sont requis' 
+        })
+      };
+    }
+
+    // Here you would integrate with your email service
+    // Example: SendGrid, Mailgun, etc.
+    console.log('Contact form submission:', data);
+
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+      body: JSON.stringify({ 
+        success: true, 
+        message: 'Message envoyé avec succès!' 
+      })
+    };
+  } catch (error) {
+    console.error('Function error:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ 
+        success: false, 
+        message: 'Erreur interne du serveur' 
+      })
+    };
+  }
+};
