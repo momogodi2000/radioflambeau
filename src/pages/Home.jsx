@@ -12,12 +12,8 @@ import { useAudio } from '../context/AudioContext';
 
 const RADIO_STREAM_URL = 'https://s2.myradiostream.com/5382/listen.mp3';
 
-const Home = () => {
-  const { play, isPlaying } = useAudio();
-
-  const handleRadioPlay = () => {
-    play(RADIO_STREAM_URL, { streamUrl: RADIO_STREAM_URL });
-  };
+const Home = ({ onRadioPlay, isStreaming, setIsStreaming }) => {
+  const { isPlaying } = useAudio();
 
   return (
     <>
@@ -66,7 +62,7 @@ const Home = () => {
       </Helmet>
       
       <main className="min-h-screen">
-        <Hero onRadioPlay={handleRadioPlay} isPlaying={isPlaying} />
+        <Hero onRadioPlay={onRadioPlay} isPlaying={isPlaying} showAdminButton={false} />
         <About />
         <Programs />
         <Team />

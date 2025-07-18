@@ -14,7 +14,7 @@ import {
   Heart,
   ExternalLink
 } from 'lucide-react';
-import RadioPlayer from '../AudioPlayer/RadioPlayer';
+import AudioPlayer from '../AudioPlayer/AudioPlayer';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -340,9 +340,6 @@ const Footer = () => {
             </p>
           </div>
         </div>
-      </div>
-      <div className="flex justify-center py-4 border-t border-gray-800 bg-gray-950">
-        <RadioPlayer />
       </div>
     </footer>
   );

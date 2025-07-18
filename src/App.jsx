@@ -98,6 +98,7 @@ function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [swUpdate, setSWUpdate] = useState(null);
   const audioPlayerRef = useRef(null);
+  const [isStreaming, setIsStreaming] = useState(false);
 
   // Monitor online/offline status
   useEffect(() => {
@@ -211,6 +212,7 @@ function App() {
   }, []);
 
   const handleRadioPlay = () => {
+    setIsStreaming(true);
     if (audioPlayerRef.current && audioPlayerRef.current.playRadio) {
       audioPlayerRef.current.playRadio();
     }
@@ -249,18 +251,13 @@ function App() {
                                     { name: "Accueil", url: "/" }
                                   ]
                                 }}>
-                                  <motion.div
-                                    key="home-page"
-                                    initial="initial"
-                                    animate="in"
-                                    exit="out"
-                                    variants={pageVariants}
-                                    transition={pageTransition}
-                                  >
-                                    <Home onRadioPlay={handleRadioPlay} />
-                                  </motion.div>
+                                  <Home 
+                                    onRadioPlay={handleRadioPlay} 
+                                    isStreaming={isStreaming}
+                                    setIsStreaming={setIsStreaming}
+                                  />
                                 </AnalyticsRoute>
-                              } 
+                              }
                             />
                             
                             <Route 
@@ -482,7 +479,12 @@ function App() {
                     </main>
                     
                     <Footer />
-                    <AudioPlayer ref={audioPlayerRef} />
+                    {/* Global Audio Player: only show when streaming is active */}
+                    {isStreaming && (
+                      <div className="fixed bottom-0 left-0 right-0 z-50">
+                        <AudioPlayer ref={audioPlayerRef} isSticky={true} />
+                      </div>
+                    )}
                     
                     {/* Toast notifications */}
                     <Toaster

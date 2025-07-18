@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Play, Pause, Info, Users, Radio, Globe, LogIn } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 
-const Hero = ({ onPlayClick, isPlaying, onRadioPlay, overlay = true }) => {
+const Hero = ({ onPlayClick, isPlaying, onRadioPlay, overlay = true, showAdminButton = true }) => {
   const [listenersCount, setListenersCount] = useState(247);
   const [currentTime, setCurrentTime] = useState(new Date());
   
@@ -199,16 +199,18 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay, overlay = true }) => {
                 <span>Découvrir</span>
               </motion.button>
               
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleLoginClick}
-                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 sm:px-6 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center space-x-3 shadow-2xl hover:shadow-3xl transition-all duration-300"
-                title="Accéder au panneau de contrôle"
-              >
-                <LogIn size={18} />
-                <span>Administration</span>
-              </motion.button>
+              {showAdminButton && (
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleLoginClick}
+                  className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 sm:px-6 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center space-x-3 shadow-2xl hover:shadow-3xl transition-all duration-300"
+                  title="Accéder au panneau de contrôle"
+                >
+                  <LogIn size={18} />
+                  <span>Administration</span>
+                </motion.button>
+              )}
             </motion.div>
             
             {/* Statistiques en temps réel */}
