@@ -249,43 +249,43 @@ const Team = () => {
       
       <div className="min-h-screen bg-white dark:bg-gray-900" ref={ref}>
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white py-10 sm:py-16 md:py-20 dark:bg-gradient-to-br dark:from-gray-900 dark:via-purple-900 dark:to-gray-800">
+        <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white py-8 sm:py-12 md:py-20 dark:bg-gradient-to-br dark:from-gray-900 dark:via-purple-900 dark:to-gray-800">
           <div className="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
-          <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+          <div className="container mx-auto px-2 sm:px-4 md:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8 }}
               className="text-center max-w-4xl mx-auto"
             >
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6">
                 Notre Équipe Passionnée
               </h1>
-              <p className="text-lg md:text-xl mb-8 text-blue-100 dark:text-purple-200">
+              <p className="text-base sm:text-lg md:text-xl mb-4 sm:mb-8 text-blue-100 dark:text-purple-200">
                 Découvrez les talents qui donnent vie à Radio Flambeau-Banka chaque jour
               </p>
-              <div className="w-24 h-1 bg-white dark:bg-purple-400 mx-auto rounded-full"></div>
+              <div className="w-16 sm:w-24 h-1 bg-white dark:bg-purple-400 mx-auto rounded-full"></div>
             </motion.div>
           </div>
         </section>
         
         {/* Statistiques */}
-        <section className="py-10 sm:py-16 md:py-20 bg-gradient-to-r from-gray-50 to-blue-50">
-          <div className="container mx-auto px-4 sm:px-6 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="py-8 sm:py-12 md:py-20 bg-gradient-to-r from-gray-50 to-blue-50">
+          <div className="container mx-auto px-2 sm:px-4 md:px-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
+                  className="text-center p-3 sm:p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <stat.icon size={32} className="text-white" />
+                  <div className="w-10 h-10 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-4">
+                    <stat.icon size={24} className="text-white" />
                   </div>
-                  <div className="text-3xl font-bold text-gray-800">{stat.value}</div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
+                  <div className="text-xl sm:text-3xl font-bold text-gray-800">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -293,24 +293,23 @@ const Team = () => {
         </section>
         
         {/* Grille des membres */}
-        <section className="py-10 sm:py-16 md:py-20">
-          <div className="container mx-auto px-4 sm:px-6 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section className="py-8 sm:py-12 md:py-20">
+          <div className="container mx-auto px-2 sm:px-4 md:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
               {teamMembers.map((member, index) => (
                 <motion.div
                   key={member.id}
                   initial={{ opacity: 0, y: 50 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
+                  className="bg-white rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
                   onClick={() => setSelectedMember(member)}
                 >
                   {/* Header avec carousel */}
                   <div className={`relative bg-gradient-to-br ${member.gradient}`}>
                     <ImageCarousel member={member} />
-                    
                     {/* Overlay social */}
-                    <div className="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute top-2 right-2 flex flex-col space-y-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
                       {member.social.facebook && (
                         <a href={member.social.facebook} className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
                           <Facebook size={16} />
@@ -328,43 +327,39 @@ const Team = () => {
                       )}
                     </div>
                   </div>
-                  
                   {/* Contenu */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">
+                  <div className="p-4 sm:p-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">
                       {member.name}
                     </h3>
-                    <p className="text-blue-600 font-semibold mb-3">
+                    <p className="text-blue-600 font-semibold mb-2 sm:mb-3 text-sm sm:text-base">
                       {member.role}
                     </p>
-                    <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-4">
+                    <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4 leading-relaxed line-clamp-3 sm:line-clamp-4">
                       {member.bio}
                     </p>
-                    
                     {/* Détails rapides */}
-                    <div className="space-y-2 text-sm mb-4">
+                    <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm mb-2 sm:mb-4">
                       <div className="flex items-center text-gray-500">
-                        <Clock size={14} className="mr-2 text-blue-500" />
+                        <Clock size={12} className="mr-1 sm:mr-2 text-blue-500" />
                         <span>Expérience: {member.experience}</span>
                       </div>
                       <div className="flex items-center text-gray-500">
-                        <Briefcase size={14} className="mr-2 text-blue-500" />
+                        <Briefcase size={12} className="mr-1 sm:mr-2 text-blue-500" />
                         <span className="truncate">{member.speciality.split(',')[0]}</span>
                       </div>
                       <div className="flex items-center text-gray-500">
-                        <Headphones size={14} className="mr-2 text-blue-500" />
+                        <Headphones size={12} className="mr-1 sm:mr-2 text-blue-500" />
                         <span>{member.shows.length} émissions</span>
                       </div>
                     </div>
-                    
                     {/* Horaires */}
-                    <div className="bg-gray-50 p-3 rounded-lg mb-4">
+                    <div className="bg-gray-50 p-2 sm:p-3 rounded-lg mb-2 sm:mb-4">
                       <p className="text-xs text-gray-600 font-medium">Horaires:</p>
-                      <p className="text-sm text-gray-700">{member.workingHours}</p>
+                      <p className="text-xs sm:text-sm text-gray-700">{member.workingHours}</p>
                     </div>
-                    
                     {/* Bouton voir plus */}
-                    <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 px-4 rounded-lg transition-all text-sm font-medium shadow-md hover:shadow-lg">
+                    <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-2 sm:py-3 px-2 sm:px-4 rounded-lg transition-all text-xs sm:text-sm font-medium shadow-md hover:shadow-lg">
                       Voir le profil complet
                     </button>
                   </div>
@@ -380,18 +375,18 @@ const Team = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-2 sm:p-4"
             onClick={() => setSelectedMember(null)}
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-2xl sm:rounded-3xl w-full max-w-lg sm:max-w-4xl max-h-[95vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header avec image originale et navigation */}
-              <div className="relative bg-gradient-to-br from-gray-100 to-blue-50 rounded-t-3xl">
+              <div className="relative bg-gradient-to-br from-gray-100 to-blue-50 rounded-t-2xl sm:rounded-t-3xl">
                 {(() => {
                   const currentIndex = imageIndex[selectedMember.id] || 0;
                   const images = selectedMember.images;
@@ -400,26 +395,26 @@ const Team = () => {
                       <img
                         src={images[currentIndex]}
                         alt={selectedMember.name}
-                        className="w-full max-h-[420px] object-contain bg-black rounded-t-3xl"
+                        className="w-full max-h-60 sm:max-h-[420px] object-contain bg-black rounded-t-2xl sm:rounded-t-3xl"
                         style={{ display: 'block', margin: '0 auto' }}
                       />
-                      {/* Navigation arrows */}
+                      {/* Navigation arrows - always visible on mobile */}
                       <button
                         onClick={() => prevImage(selectedMember.id)}
-                        className="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-black/40 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors z-10"
+                        className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 w-8 sm:w-10 h-8 sm:h-10 bg-black/40 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors z-10"
                         style={{ zIndex: 2 }}
                       >
-                        <ChevronLeft size={24} />
+                        <ChevronLeft size={20} />
                       </button>
                       <button
                         onClick={() => nextImage(selectedMember.id)}
-                        className="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-black/40 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors z-10"
+                        className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 w-8 sm:w-10 h-8 sm:h-10 bg-black/40 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors z-10"
                         style={{ zIndex: 2 }}
                       >
-                        <ChevronRight size={24} />
+                        <ChevronRight size={20} />
                       </button>
                       {/* Image count */}
-                      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/60 text-white px-4 py-1 rounded-full text-sm">
+                      <div className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 bg-black/60 text-white px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm">
                         {currentIndex + 1} / {images.length}
                       </div>
                     </>
@@ -427,31 +422,29 @@ const Team = () => {
                 })()}
                 <button
                   onClick={() => setSelectedMember(null)}
-                  className="absolute top-4 right-4 w-10 h-10 bg-black/30 rounded-full flex items-center justify-center text-white hover:bg-black/50 transition-colors z-10"
+                  className="absolute top-2 sm:top-4 right-2 sm:right-4 w-8 sm:w-10 h-8 sm:h-10 bg-black/30 rounded-full flex items-center justify-center text-white hover:bg-black/50 transition-colors z-10 text-xl sm:text-2xl"
                 >
                   ×
                 </button>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h2 className="text-3xl font-bold drop-shadow-lg">{selectedMember.name}</h2>
-                  <p className="text-blue-100 text-lg drop-shadow">{selectedMember.role}</p>
+                <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 text-white">
+                  <h2 className="text-xl sm:text-3xl font-bold drop-shadow-lg">{selectedMember.name}</h2>
+                  <p className="text-blue-100 text-base sm:text-lg drop-shadow">{selectedMember.role}</p>
                 </div>
               </div>
-              
               {/* Contenu détaillé */}
-              <div className="p-6 space-y-8">
+              <div className="p-3 sm:p-6 space-y-4 sm:space-y-8 text-xs sm:text-base">
                 {/* Citation */}
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border-l-4 border-blue-500">
-                  <p className="text-blue-800 italic text-lg font-medium">"{selectedMember.quote}"</p>
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 sm:p-6 rounded-xl border-l-4 border-blue-500">
+                  <p className="text-blue-800 italic text-base sm:text-lg font-medium">"{selectedMember.quote}"</p>
                 </div>
-                
                 {/* Informations personnelles */}
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                      <Clock size={20} className="mr-2 text-blue-500" />
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-4 flex items-center">
+                      <Clock size={16} className="mr-2 text-blue-500" />
                       Informations Professionnelles
                     </h3>
-                    <div className="space-y-3 text-sm">
+                    <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
                       <div>
                         <span className="font-semibold text-gray-700">Horaires de travail:</span>
                         <p className="text-gray-600">{selectedMember.workingHours}</p>
@@ -470,8 +463,8 @@ const Team = () => {
                 
                 {/* Biographie détaillée */}
                 <div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <BookOpen size={20} className="mr-2 text-blue-500" />
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-4 flex items-center">
+                    <BookOpen size={16} className="mr-2 text-blue-500" />
                     Biographie Complète
                   </h3>
                   <p className="text-gray-600 leading-relaxed">{selectedMember.bio}</p>
@@ -479,8 +472,8 @@ const Team = () => {
                 
                 {/* Temps forts de carrière */}
                 <div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <Star size={20} className="mr-2 text-blue-500" />
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-4 flex items-center">
+                    <Star size={16} className="mr-2 text-blue-500" />
                     Temps Forts de Carrière
                   </h3>
                   <div className="grid md:grid-cols-2 gap-4">

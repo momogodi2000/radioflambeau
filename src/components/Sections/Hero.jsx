@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Play, Pause, Info, Users, Radio, Globe, LogIn } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 
-const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
+const Hero = ({ onPlayClick, isPlaying, onRadioPlay, overlay = true }) => {
   const [listenersCount, setListenersCount] = useState(247);
   const [currentTime, setCurrentTime] = useState(new Date());
   
@@ -53,10 +53,10 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
       <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Arrière-plan avec gradient */}
         <div className="absolute inset-0 bg-gradient-to-br [--tw-gradient-from:#2563eb] [--tw-gradient-via:#9333ea] [--tw-gradient-to:#db2777]"></div>
-        
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/80 via-purple-600/80 to-pink-600/80"></div>
-        
+        {/* Overlay (optional) */}
+        {overlay && (
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/80 via-purple-600/80 to-pink-600/80"></div>
+        )}
         {/* Éléments décoratifs animés */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -98,17 +98,17 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
             className="absolute bottom-32 left-40 w-24 h-24 bg-white/10 rounded-full"
           />
         </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
+        {/* Fix: close the container div properly */}
+        <div className="container mx-auto px-2 sm:px-4 relative z-10">
           <div className="text-center text-white">
             {/* Logo principal animé */}
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: "backOut" }}
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             >
-              <div className="w-32 h-32 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-6 backdrop-blur-sm">
+              <div className={`w-24 h-24 sm:w-32 sm:h-32 mx-auto ${overlay ? 'bg-white/20 backdrop-blur-sm' : 'bg-white/10'} rounded-full flex items-center justify-center mb-4 sm:mb-6`}>
                 <motion.div
                   animate={{ 
                     rotate: isPlaying ? 360 : 0,
@@ -118,7 +118,7 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
                     rotate: { duration: 3, repeat: isPlaying ? Infinity : 0, ease: "linear" },
                     scale: { duration: 2, repeat: isPlaying ? Infinity : 0, ease: "easeInOut" }
                   }}
-                  className="text-6xl"
+                  className="text-4xl sm:text-6xl"
                 >
                   📻
                 </motion.div>
@@ -128,7 +128,7 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 drop-shadow-lg"
+                className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-2 sm:mb-4 drop-shadow-lg"
               >
                 Radio Flambeau-Banka
               </motion.h1>
@@ -137,7 +137,7 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-xl md:text-2xl mb-2 drop-shadow-md"
+                className="text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2 drop-shadow-md"
               >
                 Votre voix, votre communauté
               </motion.p>
@@ -146,7 +146,7 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="text-lg md:text-xl text-blue-200 mb-8 drop-shadow-md"
+                className="text-base sm:text-lg md:text-xl text-blue-200 mb-4 sm:mb-8 drop-shadow-md"
               >
                 Maintenant dans le monde entier
               </motion.p>
@@ -156,7 +156,7 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.9 }}
-                className="h-2 w-48 mx-auto rounded-full mb-8 overflow-hidden"
+                className="h-2 w-32 sm:w-48 mx-auto rounded-full mb-4 sm:mb-8 overflow-hidden"
                 style={{
                   background: 'linear-gradient(90deg, #00AA00 0%, #FF0000 50%, #FFFF00 100%)'
                 }}
@@ -168,7 +168,7 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.1 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12"
             >
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -177,12 +177,12 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
                   onPlayClick && onPlayClick();
                   onRadioPlay && onRadioPlay();
                 }}
-                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center space-x-3 shadow-2xl hover:shadow-3xl transition-all duration-300"
+                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center space-x-3 shadow-2xl hover:shadow-3xl transition-all duration-300"
               >
                 {isPlaying ? (
-                  <Pause size={24} />
+                  <Pause size={20} />
                 ) : (
-                  <Play size={24} />
+                  <Play size={20} />
                 )}
                 <span>
                   {isPlaying ? 'Pause' : 'Écouter en direct'}
@@ -193,9 +193,9 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection('apropos')}
-                className="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center space-x-3 hover:bg-white/30 transition-all duration-300"
+                className={`px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center space-x-3 transition-all duration-300 ${overlay ? 'bg-white/20 backdrop-blur-sm text-white hover:bg-white/30' : 'bg-white/80 text-blue-700 hover:bg-white'}`}
               >
-                <Info size={24} />
+                <Info size={20} />
                 <span>Découvrir</span>
               </motion.button>
               
@@ -203,10 +203,10 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay }) => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleLoginClick}
-                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-full font-semibold text-lg flex items-center space-x-3 shadow-2xl hover:shadow-3xl transition-all duration-300"
+                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 sm:px-6 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center space-x-3 shadow-2xl hover:shadow-3xl transition-all duration-300"
                 title="Accéder au panneau de contrôle"
               >
-                <LogIn size={20} />
+                <LogIn size={18} />
                 <span>Administration</span>
               </motion.button>
             </motion.div>

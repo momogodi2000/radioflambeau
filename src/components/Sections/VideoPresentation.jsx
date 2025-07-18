@@ -1,9 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const VideoPresentation = () => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [iframeBlocked, setIframeBlocked] = useState(false);
+
+  // Fallback: if iframe doesn't load after 3s, consider it blocked
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (videoRef.current && !videoRef.current.contentWindow) {
+        setIframeBlocked(true);
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleIframeError = () => {
+    setIframeBlocked(true);
+  };
 
   const handlePlay = () => setIsPlaying(true);
   const handlePause = () => setIsPlaying(false);
@@ -68,19 +83,36 @@ const VideoPresentation = () => {
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                   title="Radio Flambeau-Banka Presentation"
+                  onError={handleIframeError}
                 />
-                
-                {/* Download Button - top right */}
+                {/* Fallback overlay if blocked */}
+                {(iframeBlocked) && (
+                  <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center z-20 p-4 rounded-3xl">
+                    <p className="text-white text-lg font-semibold mb-4 text-center">
+                      Cette vidéo ne peut pas être affichée ici.<br />
+                      Cliquez ci-dessous pour l’ouvrir dans un nouvel onglet.
+                    </p>
+                    <a
+                      href={presentationVideoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200"
+                    >
+                      Ouvrir la vidéo
+                    </a>
+                  </div>
+                )}
+                {/* Always show open in new tab button for reliability */}
                 <a
-                  href={getGoogleDriveDownloadUrl(presentationVideoUrl)}
+                  href={presentationVideoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="absolute top-4 right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full shadow-lg text-sm font-semibold flex items-center gap-2 hover:scale-105 transition-transform duration-200 z-10"
+                  className="absolute bottom-4 right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full shadow-lg text-sm font-semibold flex items-center gap-2 hover:scale-105 transition-transform duration-200 z-10"
                   style={{ textDecoration: 'none' }}
-                  title="Télécharger la vidéo en cours"
+                  title="Ouvrir la vidéo dans un nouvel onglet"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" /></svg>
-                  Télécharger
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" /></svg>
+                  Ouvrir la vidéo
                 </a>
                 
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">

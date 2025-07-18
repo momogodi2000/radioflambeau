@@ -35,6 +35,9 @@ const Offline = () => {
             <p className="text-gray-600 mb-8">
               Impossible de se connecter à Radio Flambeau-Banka. Vérifiez votre connexion internet et réessayez.
             </p>
+            <p className="text-red-500 font-semibold mb-4">
+              La radio en direct n’est pas disponible hors connexion. Certaines fonctionnalités restent accessibles.
+            </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button

@@ -11,7 +11,8 @@ const PWAInstallPrompt = () => {
     canInstall, 
     isInstalled, 
     installPWA,
-    deviceInfo
+    deviceInfo,
+    showDesktopInstallInstructions // <-- add this
   } = usePWA();
 
   useEffect(() => {
@@ -33,6 +34,8 @@ const PWAInstallPrompt = () => {
     const success = await installPWA();
     if (success) {
       setShowPrompt(false);
+    } else if (deviceInfo.isDesktop && showDesktopInstallInstructions) {
+      showDesktopInstallInstructions();
     }
   };
 
@@ -40,6 +43,12 @@ const PWAInstallPrompt = () => {
     setShowPrompt(false);
     setDismissed(true);
     localStorage.setItem('pwaPromptDismissed', Date.now().toString());
+  };
+
+  const handleWhyInstall = () => {
+    alert(
+      "Installer l'application permet un accès rapide depuis votre écran d'accueil, une expérience plus fluide, l'utilisation hors ligne, et des notifications personnalisées. Essayez !"
+    );
   };
 
   // Different prompt content based on device type
@@ -71,9 +80,16 @@ const PWAInstallPrompt = () => {
           </ol>
           <button
             onClick={handleDismiss}
-            className="w-full py-2 px-4 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+            className="w-full py-2 px-4 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors mb-2"
           >
             J'ai compris
+          </button>
+          <button
+            onClick={handleWhyInstall}
+            className="w-full py-2 px-4 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 text-sm mt-2"
+            type="button"
+          >
+            Pourquoi installer ?
           </button>
         </div>
       );
@@ -99,6 +115,13 @@ const PWAInstallPrompt = () => {
             >
               Plus tard
             </button>
+            <button
+              onClick={handleWhyInstall}
+              className="py-2 px-4 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 text-sm mt-2"
+              type="button"
+            >
+              Pourquoi installer ?
+            </button>
           </div>
         </div>
       );
@@ -123,6 +146,13 @@ const PWAInstallPrompt = () => {
               className="py-2 px-4 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
             >
               Non merci
+            </button>
+            <button
+              onClick={handleWhyInstall}
+              className="py-2 px-4 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 text-sm mt-2"
+              type="button"
+            >
+              Pourquoi installer ?
             </button>
           </div>
         </div>

@@ -67,19 +67,33 @@ export const AudioProvider = ({ children }) => {
   }, []);
 
   const play = async (streamUrl, trackInfo = null) => {
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+      setError('Streaming indisponible hors ligne.');
+      setIsLoading(false);
+      setIsPlaying(false);
+      return;
+    }
     try {
       setError(null);
       setIsLoading(true);
-      
+      // If the stream URL changed, reset src
       if (audioRef.current.src !== streamUrl) {
         audioRef.current.src = streamUrl;
         setCurrentTrack(trackInfo);
       }
-      
+      // Always call load before play for reliability
+      audioRef.current.load();
       await audioRef.current.play();
     } catch (err) {
-      setError('Impossible de démarrer la lecture');
+      // Autoplay policy or CORS error
+      setError(
+        'Impossible de démarrer la lecture. Veuillez cliquer sur le bouton Lecture pour autoriser le son dans votre navigateur.'
+      );
       setIsLoading(false);
+      setIsPlaying(false);
+      // Optionally, reset the audio element for next attempt
+      audioRef.current.src = '';
+      audioRef.current.load();
     }
   };
 
