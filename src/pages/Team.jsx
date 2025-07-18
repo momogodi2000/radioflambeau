@@ -295,16 +295,17 @@ const Team = () => {
         
         {/* Grille des membres */}
         <section className="py-8 sm:py-12 md:py-20">
-          <div className="container mx-auto px-4 sm:px-6 md:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="container mx-auto px-2 sm:px-4 md:px-8">
+            <div className="flex flex-col gap-2 sm:grid sm:grid-cols-2 gap-4 sm:gap-8 w-full min-w-0">
               {teamMembers.map((member, index) => (
                 <motion.div
                   key={member.id}
                   initial={{ opacity: 0, y: 50 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
+                  className="bg-white rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer w-full min-w-0"
                   onClick={() => setSelectedMember(member)}
+                  style={{ minWidth: 0 }}
                 >
                   {/* Header avec carousel */}
                   <div className={`relative bg-gradient-to-br ${member.gradient}`}>
@@ -376,16 +377,17 @@ const Team = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-0 sm:p-4 overflow-y-auto"
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-0 sm:p-2 w-full h-full overflow-auto"
             onClick={() => setSelectedMember(null)}
+            style={{ overscrollBehavior: 'contain' }}
           >
             <motion.div
               initial={{ scale: 0.98, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.98, opacity: 0 }}
-              className="bg-white rounded-none sm:rounded-3xl w-full h-full sm:w-full sm:max-w-4xl sm:max-h-[95vh] overflow-y-auto"
+              className="bg-white w-full h-full fixed top-0 left-0 sm:relative sm:rounded-3xl sm:w-full sm:max-w-4xl sm:max-h-[95vh] overflow-y-auto flex flex-col gap-2 p-2 sm:p-6 min-w-0 min-h-0"
               onClick={(e) => e.stopPropagation()}
-              style={{ maxHeight: '100vh' }}
+              style={{ maxHeight: '100vh', height: '100%', width: '100%', overscrollBehavior: 'contain' }}
             >
               {/* Header avec image originale et navigation */}
               <div className="relative bg-gradient-to-br from-gray-100 to-blue-50 rounded-t-2xl sm:rounded-t-3xl">

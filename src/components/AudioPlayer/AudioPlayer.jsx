@@ -2,93 +2,27 @@
 import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { Play, Pause, Volume2, SkipBack, SkipForward, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAudio } from '../../context/AudioContext';
 
 const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState('Radio Flambeau-Banka - En direct');
-  const [volume, setVolume] = useState(50);
-  const [currentStreamIndex, setCurrentStreamIndex] = useState(0);
-  const [listenersCount, setListenersCount] = useState(247);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  
-  const audioRef = useRef(null);
-  const retryTimeoutRef = useRef(null);
-  
-  // URLs de streaming avec fallback
-  const streamUrls = [
-    streamUrl || 'https://s2.myradiostream.com/5382/listen.mp3'
-    // Add more fallback URLs here if needed
-  ];
-  
-  // Initialisation du lecteur audio
+  const {
+    isPlaying,
+    isLoading,
+    error,
+    play,
+    pause,
+    togglePlay,
+    setVolume,
+    volume,
+    currentTrack,
+    listenersCount
+  } = useAudio();
+  // Auto-play when player is shown and not already playing
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    
-    // Définir le volume initial
-    audio.volume = volume / 100;
-    
-    // Gestionnaires d'événements
-    const handleCanPlay = () => {
-      setIsLoading(false);
-      setError(null);
-    };
-    
-    const handleError = (e) => {
-      console.error('Erreur de lecture audio:', e);
-      setError('Erreur de connexion au stream');
-      setIsLoading(false);
-      tryNextStream();
-    };
-    
-    const handleLoadStart = () => {
-      setIsLoading(true);
-      setError(null);
-    };
-    
-    const handlePlay = () => {
-      setIsPlaying(true);
-      setIsLoading(false);
-    };
-    
-    const handlePause = () => {
-      setIsPlaying(false);
-    };
-    
-    audio.addEventListener('canplay', handleCanPlay);
-    audio.addEventListener('error', handleError);
-    audio.addEventListener('loadstart', handleLoadStart);
-    audio.addEventListener('play', handlePlay);
-    audio.addEventListener('pause', handlePause);
-    
-    return () => {
-      audio.removeEventListener('canplay', handleCanPlay);
-      audio.removeEventListener('error', handleError);
-      audio.removeEventListener('loadstart', handleLoadStart);
-      audio.removeEventListener('play', handlePlay);
-      audio.removeEventListener('pause', handlePause);
-      
-      if (retryTimeoutRef.current) {
-        clearTimeout(retryTimeoutRef.current);
-      }
-    };
-  }, [currentStreamIndex]);
-  
-  // Mise à jour du volume
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume / 100;
+    if (streamUrl && !isPlaying) {
+      play(streamUrl, { streamUrl });
     }
-  }, [volume]);
-
-  // Auto-play when streamUrl changes and is not empty
-  useEffect(() => {
-    if (streamUrl && audioRef.current) {
-      audioRef.current.src = streamUrl;
-      audioRef.current.load();
-      audioRef.current.play().catch(() => {});
-    }
+    // eslint-disable-next-line
   }, [streamUrl]);
   
   // Essayer le stream suivant en cas d'erreur
@@ -109,26 +43,6 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) =
     }, 2000);
   };
   
-  // Fonction pour jouer/pause
-  const togglePlayPause = async () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    
-    try {
-      if (isPlaying) {
-        audio.pause();
-      } else {
-        setIsLoading(true);
-        audio.src = streamUrls[currentStreamIndex];
-        await audio.play();
-      }
-    } catch (error) {
-      console.error('Erreur lors de la lecture:', error);
-      setError('Impossible de lire le stream');
-      setIsLoading(false);
-    }
-  };
-  
   // Mettre à jour les métadonnées
   useEffect(() => {
     const updateMetadata = () => {
@@ -140,12 +54,12 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) =
       ];
       
       const randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
-      setCurrentTrack(randomTrack);
+      // setCurrentTrack(randomTrack); // Removed as per edit hint
       
       // Simuler le nombre d'auditeurs
       const baseCount = 247;
       const variation = Math.floor(Math.random() * 50) - 25;
-      setListenersCount(baseCount + variation);
+      // setListenersCount(baseCount + variation); // Removed as per edit hint
     };
     
     updateMetadata();
@@ -157,7 +71,7 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) =
   useImperativeHandle(ref, () => ({
     playRadio: async () => {
       if (!isPlaying) {
-        await togglePlayPause();
+        await togglePlay();
       }
     }
   }));
@@ -216,14 +130,18 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) =
               text-sm ${isSticky ? 'text-gray-300' : 'text-gray-600'}
               ${isSticky ? 'text-xs' : ''}
             `}>
-              {error ? error : currentTrack}
+              {error
+                ? error
+                : typeof currentTrack === 'string'
+                  ? currentTrack
+                  : (currentTrack?.title || currentTrack?.name || currentTrack?.streamUrl || 'Radio Flambeau-Banka')}
             </p>
             <div className="flex items-center space-x-2 mt-1">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               <span className={`
                 text-xs ${isSticky ? 'text-gray-400' : 'text-gray-500'}
               `}>
-                {listenersCount} auditeurs
+                {(typeof listenersCount !== 'undefined' ? listenersCount : '...')} auditeurs
               </span>
             </div>
           </div>
@@ -245,7 +163,7 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) =
           
           {/* Bouton play/pause principal */}
           <button
-            onClick={togglePlayPause}
+            onClick={togglePlay}
             disabled={isLoading}
             className={`
               ${isSticky ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'}
@@ -288,7 +206,8 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) =
             <input
               type="range"
               min="0"
-              max="100"
+              max="1"
+              step="0.01"
               value={volume}
               onChange={(e) => setVolume(Number(e.target.value))}
               className={`
@@ -316,7 +235,7 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) =
         flex items-center justify-between text-xs
         ${isSticky ? 'text-gray-400' : 'text-gray-600'}
       `}>
-        <span>Stream {currentStreamIndex + 1} de {streamUrls.length}</span>
+        <span>Stream en direct</span>
         <span className="flex items-center space-x-2">
           <div className={`
             w-2 h-2 rounded-full 
@@ -326,13 +245,6 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) =
         </span>
       </div>
       
-      {/* Élément audio */}
-      <audio
-        ref={audioRef}
-        preload="none"
-        crossOrigin="anonymous"
-        className="hidden"
-      />
     </motion.div>
   );
   
