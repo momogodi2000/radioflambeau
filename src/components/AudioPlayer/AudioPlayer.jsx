@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } f
 import { Play, Pause, Volume2, SkipBack, SkipForward, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const AudioPlayer = forwardRef(({ isSticky = false, onClose }, ref) => {
+const AudioPlayer = forwardRef(({ isSticky = false, onClose, streamUrl }, ref) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState('Radio Flambeau-Banka - En direct');
   const [volume, setVolume] = useState(50);
@@ -17,7 +17,7 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose }, ref) => {
   
   // URLs de streaming avec fallback
   const streamUrls = [
-    'https://s2.myradiostream.com/5382/listen.mp3'
+    streamUrl || 'https://s2.myradiostream.com/5382/listen.mp3'
     // Add more fallback URLs here if needed
   ];
   
@@ -81,6 +81,15 @@ const AudioPlayer = forwardRef(({ isSticky = false, onClose }, ref) => {
       audioRef.current.volume = volume / 100;
     }
   }, [volume]);
+
+  // Auto-play when streamUrl changes and is not empty
+  useEffect(() => {
+    if (streamUrl && audioRef.current) {
+      audioRef.current.src = streamUrl;
+      audioRef.current.load();
+      audioRef.current.play().catch(() => {});
+    }
+  }, [streamUrl]);
   
   // Essayer le stream suivant en cas d'erreur
   const tryNextStream = () => {

@@ -99,6 +99,7 @@ function App() {
   const [swUpdate, setSWUpdate] = useState(null);
   const audioPlayerRef = useRef(null);
   const [isStreaming, setIsStreaming] = useState(false);
+  const RADIO_STREAM_URL = 'https://s2.myradiostream.com/5382/listen.mp3';
 
   // Monitor online/offline status
   useEffect(() => {
@@ -482,7 +483,7 @@ function App() {
                     {/* Global Audio Player: only show when streaming is active */}
                     {isStreaming && (
                       <div className="fixed bottom-0 left-0 right-0 z-50">
-                        <AudioPlayer ref={audioPlayerRef} isSticky={true} />
+                        <AudioPlayer ref={audioPlayerRef} isSticky={true} streamUrl={RADIO_STREAM_URL} />
                       </div>
                     )}
                     

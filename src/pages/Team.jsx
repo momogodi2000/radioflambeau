@@ -89,6 +89,7 @@ const Team = () => {
       hobbies: ['Football (supporter des Lions Indomptables)', 'Lecture (romans africains)', 'Voyage (découverte culturelle)', 'Cuisine traditionnelle camerounaise'],
       quote: 'La radio est un pont entre les cœurs, peu importe la distance. Notre mission est de rassembler les communautés à travers la voix.',
       images: [
+        '/images/team/yossa.jpg',
         '/images/team/gabriel-1.jpg',
         '/images/team/gabriel-2.jpg'
       ],
