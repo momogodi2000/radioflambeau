@@ -931,41 +931,7 @@ const Gallery = () => {
           </>
         )}
 
-        {/* Call to Action */}
-        <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
-          <div className="container mx-auto px-4 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-4xl font-bold mb-6">
-                Partagez vos moments
-              </h2>
-              <p className="text-xl mb-8 max-w-3xl mx-auto">
-                Vous avez des photos ou vidéos de nos événements ? Partagez-les avec nous !
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a
-                  href="mailto:radioflambeaubanka@gmail.com?subject=Partage de contenu"
-                  className="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors flex items-center space-x-2"
-                >
-                  <Camera size={20} />
-                  <span>Envoyer vos photos</span>
-                </a>
-                <a
-                  href="https://wa.me/237696044661"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-colors flex items-center space-x-2"
-                >
-                  <Share2 size={20} />
-                  <span>WhatsApp</span>
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+     
       </div>
 
       {/* Item Detail Modal */}
