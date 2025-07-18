@@ -5,7 +5,6 @@ import Hero from '../components/Sections/Hero';
 import About from '../components/Sections/About';
 import Programs from '../components/Sections/Programs';
 import Team from '../components/Sections/Team';
-import News from '../components/Sections/News';
 import VideoPresentation from '../components/Sections/VideoPresentation';
 import TestimonySection from '../components/Sections/TestimonySection';
 import { useAudio } from '../context/AudioContext';
@@ -71,7 +70,6 @@ const Home = () => {
         <About />
         <Programs />
         <Team />
-        <News />
         <VideoPresentation />
         <TestimonySection />
         
