@@ -155,7 +155,7 @@ const Team = () => {
         'Collaboration avec 20+ artistes locaux'
       ]
     }
-];
+  ];
   
   const stats = [
     { icon: Users, value: '25+', label: 'Membres d\'équipe actifs' },
@@ -187,7 +187,7 @@ const Team = () => {
     const isLarge = size === 'large';
     
     return (
-      <div className={`relative ${isLarge ? 'h-64' : 'h-48'} bg-white rounded-t-3xl shadow-md mb-4 overflow-hidden group`}>
+      <div className={`relative ${isLarge ? 'h-64 sm:h-80' : 'h-48 sm:h-64'} bg-white rounded-t-3xl shadow-md mb-4 overflow-hidden group`}>
         <div 
           className="flex transition-transform duration-300 ease-in-out h-full"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -251,14 +251,14 @@ const Team = () => {
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white py-8 sm:py-12 md:py-20 dark:bg-gradient-to-br dark:from-gray-900 dark:via-purple-900 dark:to-gray-800">
           <div className="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
-          <div className="container mx-auto px-2 sm:px-4 md:px-8 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8 }}
               className="text-center max-w-4xl mx-auto"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
                 Notre Équipe Passionnée
               </h1>
               <p className="text-base sm:text-lg md:text-xl mb-4 sm:mb-8 text-blue-100 dark:text-purple-200">
@@ -271,7 +271,7 @@ const Team = () => {
         
         {/* Statistiques */}
         <section className="py-8 sm:py-12 md:py-20 bg-gradient-to-r from-gray-50 to-blue-50">
-          <div className="container mx-auto px-2 sm:px-4 md:px-8">
+          <div className="container mx-auto px-4 sm:px-6 md:px-8">
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               {stats.map((stat, index) => (
                 <motion.div
@@ -279,7 +279,7 @@ const Team = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="text-center p-3 sm:p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
+                  className="text-center p-4 sm:p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
                 >
                   <div className="w-10 h-10 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-4">
                     <stat.icon size={24} className="text-white" />
@@ -294,8 +294,8 @@ const Team = () => {
         
         {/* Grille des membres */}
         <section className="py-8 sm:py-12 md:py-20">
-          <div className="container mx-auto px-2 sm:px-4 md:px-8">
-            <div className="flex flex-col gap-4 sm:grid sm:grid-cols-2 gap-4 sm:gap-8">
+          <div className="container mx-auto px-4 sm:px-6 md:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {teamMembers.map((member, index) => (
                 <motion.div
                   key={member.id}
@@ -304,7 +304,6 @@ const Team = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="bg-white rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
                   onClick={() => setSelectedMember(member)}
-                  style={{ minWidth: 0 }}
                 >
                   {/* Header avec carousel */}
                   <div className={`relative bg-gradient-to-br ${member.gradient}`}>
@@ -312,17 +311,17 @@ const Team = () => {
                     {/* Overlay social */}
                     <div className="absolute top-2 right-2 flex flex-col space-y-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
                       {member.social.facebook && (
-                        <a href={member.social.facebook} className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                        <a href={member.social.facebook} target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
                           <Facebook size={16} />
                         </a>
                       )}
                       {member.social.twitter && (
-                        <a href={member.social.twitter} className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                        <a href={member.social.twitter} target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
                           <Twitter size={16} />
                         </a>
                       )}
                       {member.social.instagram && (
-                        <a href={member.social.instagram} className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                        <a href={member.social.instagram} target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
                           <Instagram size={16} />
                         </a>
                       )}
@@ -376,9 +375,8 @@ const Team = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-0 sm:p-2"
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-0 sm:p-4 overflow-y-auto"
             onClick={() => setSelectedMember(null)}
-            style={{ overscrollBehavior: 'contain' }}
           >
             <motion.div
               initial={{ scale: 0.98, opacity: 0 }}
@@ -386,7 +384,7 @@ const Team = () => {
               exit={{ scale: 0.98, opacity: 0 }}
               className="bg-white rounded-none sm:rounded-3xl w-full h-full sm:w-full sm:max-w-4xl sm:max-h-[95vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
-              style={{ maxHeight: '100vh', height: '100%', width: '100%', padding: '0', overscrollBehavior: 'contain' }}
+              style={{ maxHeight: '100vh' }}
             >
               {/* Header avec image originale et navigation */}
               <div className="relative bg-gradient-to-br from-gray-100 to-blue-50 rounded-t-2xl sm:rounded-t-3xl">
@@ -398,21 +396,24 @@ const Team = () => {
                       <img
                         src={images[currentIndex]}
                         alt={selectedMember.name}
-                        className="w-full max-h-60 sm:max-h-[420px] object-contain bg-black rounded-t-2xl sm:rounded-t-3xl"
-                        style={{ display: 'block', margin: '0 auto' }}
+                        className="w-full h-48 sm:h-64 md:h-80 object-cover bg-black rounded-t-2xl sm:rounded-t-3xl"
                       />
                       {/* Navigation arrows - always visible on mobile */}
                       <button
-                        onClick={() => prevImage(selectedMember.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          prevImage(selectedMember.id);
+                        }}
                         className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 w-8 sm:w-10 h-8 sm:h-10 bg-black/40 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors z-10"
-                        style={{ zIndex: 2 }}
                       >
                         <ChevronLeft size={20} />
                       </button>
                       <button
-                        onClick={() => nextImage(selectedMember.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          nextImage(selectedMember.id);
+                        }}
                         className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 w-8 sm:w-10 h-8 sm:h-10 bg-black/40 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors z-10"
-                        style={{ zIndex: 2 }}
                       >
                         <ChevronRight size={20} />
                       </button>
@@ -435,10 +436,10 @@ const Team = () => {
                 </div>
               </div>
               {/* Contenu détaillé */}
-              <div className="p-3 sm:p-6 space-y-4 sm:space-y-8 text-xs sm:text-base">
+              <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
                 {/* Citation */}
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 sm:p-6 rounded-xl border-l-4 border-blue-500">
-                  <p className="text-blue-800 italic text-base sm:text-lg font-medium">"{selectedMember.quote}"</p>
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 sm:p-6 rounded-xl border-l-4 border-blue-500">
+                  <p className="text-blue-800 italic text-sm sm:text-base font-medium">"{selectedMember.quote}"</p>
                 </div>
                 {/* Informations personnelles */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -447,7 +448,7 @@ const Team = () => {
                       <Clock size={16} className="mr-2 text-blue-500" />
                       Informations Professionnelles
                     </h3>
-                    <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
+                    <div className="space-y-2 sm:space-y-3 text-sm">
                       <div>
                         <span className="font-semibold text-gray-700">Horaires de travail:</span>
                         <p className="text-gray-600">{selectedMember.workingHours}</p>
@@ -470,7 +471,7 @@ const Team = () => {
                     <BookOpen size={16} className="mr-2 text-blue-500" />
                     Biographie Complète
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">{selectedMember.bio}</p>
+                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{selectedMember.bio}</p>
                 </div>
                 
                 {/* Temps forts de carrière */}
@@ -479,7 +480,7 @@ const Team = () => {
                     <Star size={16} className="mr-2 text-blue-500" />
                     Temps Forts de Carrière
                   </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {selectedMember.careerHighlights.map((highlight, index) => (
                       <div key={index} className="bg-gradient-to-r from-gray-50 to-blue-50 p-4 rounded-lg">
                         <div className="flex items-start">
@@ -494,7 +495,7 @@ const Team = () => {
                 </div>
                 
                 {/* Détails professionnels */}
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-bold text-gray-800 mb-3 flex items-center">
                       <Briefcase size={16} className="mr-2 text-blue-500" />
@@ -502,7 +503,7 @@ const Team = () => {
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedMember.speciality.split(', ').map((specialty, index) => (
-                        <span key={index} className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                        <span key={index} className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs sm:text-sm">
                           {specialty}
                         </span>
                       ))}
@@ -516,7 +517,7 @@ const Team = () => {
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedMember.hobbies.map((hobby, index) => (
-                        <span key={index} className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">
+                        <span key={index} className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs sm:text-sm">
                           {hobby}
                         </span>
                       ))}
@@ -541,7 +542,7 @@ const Team = () => {
                     <Mic size={16} className="mr-2 text-blue-500" />
                     Émissions Animées
                   </h4>
-                  <div className="grid md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {selectedMember.shows.map((show, index) => (
                       <div key={index} className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 rounded-lg">
                         <div className="flex items-center">
@@ -570,26 +571,26 @@ const Team = () => {
                 </div>
                 
                 {/* Contact */}
-                <div className="bg-gradient-to-r from-gray-50 to-blue-50 p-6 rounded-xl">
+                <div className="bg-gradient-to-r from-gray-50 to-blue-50 p-4 sm:p-6 rounded-xl">
                   <h4 className="font-bold text-gray-800 mb-4 flex items-center">
                     <Mail size={16} className="mr-2 text-blue-500" />
                     Informations de Contact
                   </h4>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-3">
                       <div className="flex items-center text-gray-600">
                         <Mail size={16} className="mr-3 text-blue-500" />
-                        <a href={`mailto:${selectedMember.contact.email}`} className="hover:text-blue-600 transition-colors">
+                        <a href={`mailto:${selectedMember.contact.email}`} className="hover:text-blue-600 transition-colors text-sm">
                           {selectedMember.contact.email}
                         </a>
                       </div>
                       <div className="flex items-center text-gray-600">
                         <Phone size={16} className="mr-3 text-blue-500" />
-                        <span>{selectedMember.contact.phone}</span>
+                        <span className="text-sm">{selectedMember.contact.phone}</span>
                       </div>
                       <div className="flex items-center text-gray-600">
                         <MapPin size={16} className="mr-3 text-blue-500" />
-                        <span>{selectedMember.contact.office}</span>
+                        <span className="text-sm">{selectedMember.contact.office}</span>
                       </div>
                     </div>
                     
@@ -597,17 +598,17 @@ const Team = () => {
                       <p className="text-sm text-gray-600 mb-3">Suivez-moi sur les réseaux sociaux :</p>
                       <div className="flex items-center space-x-3">
                         {selectedMember.social.facebook && (
-                          <a href={selectedMember.social.facebook} className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+                          <a href={selectedMember.social.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
                             <Facebook size={18} />
                           </a>
                         )}
                         {selectedMember.social.twitter && (
-                          <a href={selectedMember.social.twitter} className="w-10 h-10 bg-sky-500 rounded-full flex items-center justify-center text-white hover:bg-sky-600 transition-colors">
+                          <a href={selectedMember.social.twitter} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-sky-500 rounded-full flex items-center justify-center text-white hover:bg-sky-600 transition-colors">
                             <Twitter size={18} />
                           </a>
                         )}
                         {selectedMember.social.instagram && (
-                          <a href={selectedMember.social.instagram} className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center text-white hover:bg-pink-700 transition-colors">
+                          <a href={selectedMember.social.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center text-white hover:bg-pink-700 transition-colors">
                             <Instagram size={18} />
                           </a>
                         )}
@@ -627,15 +628,15 @@ const Team = () => {
         <section className="py-10 sm:py-16 md:py-20 bg-gradient-to-r from-gray-50 to-blue-50">
           <div className="container mx-auto px-4 sm:px-6 md:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4">
                 Nos Valeurs d'Équipe
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
                 Ce qui nous unit et nous guide dans notre mission quotidienne
               </p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -646,7 +647,7 @@ const Team = () => {
                   <Heart size={32} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-3">Passion</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm sm:text-base">
                   Nous aimons ce que nous faisons et cela se ressent dans chaque émission, chaque programme.
                 </p>
               </motion.div>
@@ -661,7 +662,7 @@ const Team = () => {
                   <Users size={32} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-3">Collaboration</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm sm:text-base">
                   Ensemble, nous créons des contenus exceptionnels qui touchent le cœur de nos auditeurs.
                 </p>
               </motion.div>
@@ -676,7 +677,7 @@ const Team = () => {
                   <Globe size={32} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-3">Innovation</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm sm:text-base">
                   Nous repoussons constamment les limites pour offrir une expérience radio unique et moderne.
                 </p>
               </motion.div>
@@ -692,35 +693,35 @@ const Team = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
                 Rejoignez Notre Équipe Passionnée !
               </h2>
-              <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl mb-8 max-w-3xl mx-auto">
                 Vous êtes passionné par la radio, la communication et souhaitez contribuer à notre mission de rassembler les communautés ? 
                 Nous recherchons toujours des talents motivés pour enrichir notre équipe dynamique.
               </p>
-              <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
                 <div className="bg-white/10 p-4 rounded-lg">
                   <Mic size={24} className="mx-auto mb-2" />
                   <h3 className="font-semibold mb-1">Animateurs</h3>
-                  <p className="text-sm text-blue-100">Exprimez votre créativité à l'antenne</p>
+                  <p className="text-xs sm:text-sm text-blue-100">Exprimez votre créativité à l'antenne</p>
                 </div>
                 <div className="bg-white/10 p-4 rounded-lg">
                   <Users size={24} className="mx-auto mb-2" />
                   <h3 className="font-semibold mb-1">Bénévoles</h3>
-                  <p className="text-sm text-blue-100">Contribuez selon vos disponibilités</p>
+                  <p className="text-xs sm:text-sm text-blue-100">Contribuez selon vos disponibilités</p>
                 </div>
                 <div className="bg-white/10 p-4 rounded-lg">
                   <Briefcase size={24} className="mx-auto mb-2" />
                   <h3 className="font-semibold mb-1">Techniciens</h3>
-                  <p className="text-sm text-blue-100">Maîtrisez les technologies radio</p>
+                  <p className="text-xs sm:text-sm text-blue-100">Maîtrisez les technologies radio</p>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg">
+                <button className="bg-white text-blue-600 px-6 py-3 sm:px-8 sm:py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg">
                   Postuler maintenant
                 </button>
-                <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                <button className="border-2 border-white text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-colors">
                   Devenir bénévole
                 </button>
               </div>
