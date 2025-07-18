@@ -218,19 +218,28 @@ const Footer = () => {
             </div>
           </div>
           
-          {/* Partnership Badge */}
+       {/* Partnership Badge */}
           <div className="mt-8 flex flex-col items-center">
-            <div className="bg-gray-800 rounded-xl px-6 py-4 shadow-md flex items-center border border-gray-700">
-              <img 
-                src="/images/flyer.png" 
-                alt="PROTEGE QV Logo" 
-                className="h-12 mr-4"
-              />
-              <div>
-                <p className="text-sm text-gray-400">Partenaire technique depuis 2024</p>
-                <p className="font-bold text-blue-400">PROTEGE QV - Promotion des Valeurs Quotidiennes</p>
+            <a 
+              href="https://www.protegeqv.org/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-full max-w-md"
+            >
+              <div className="bg-gray-800 rounded-xl px-6 py-4 shadow-md flex items-center border border-gray-700 hover:bg-gray-700 transition-colors duration-300">
+                <img 
+                  src="/images/flyer.png" 
+                  alt="PROTEGE QV Logo" 
+                  className="h-12 mr-4"
+                />
+                <div>
+                  <p className="text-sm text-gray-400">Partenaire technique depuis 2024</p>
+                  <p className="font-bold text-blue-400 hover:text-blue-300 transition-colors duration-300">
+                    PROTEGE QV - Promotion des Valeurs Quotidiennes
+                  </p>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
         </motion.div>
 

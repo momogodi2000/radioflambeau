@@ -27,7 +27,7 @@ const About = () => {
                 À Propos de Nous
               </h1>
               <p className="text-xl md:text-2xl text-blue-100 mb-4">
-                Votre voix, votre communauté
+              La voix, de la communauté
               </p>
               <p className="text-lg text-blue-200">
                 Depuis le cœur du département de l'Ouest du Haut-Nkam, Cameroun

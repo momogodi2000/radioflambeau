@@ -139,7 +139,7 @@ const Hero = ({ onPlayClick, isPlaying, onRadioPlay, overlay = true, showAdminBu
                 transition={{ duration: 0.8, delay: 0.5 }}
                 className="text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2 drop-shadow-md"
               >
-                Votre voix, votre communauté
+                La voix, de la communauté
               </motion.p>
               
               <motion.p
